@@ -1,0 +1,81 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed May 20 03:07:46 2020
+
+@author: CharlesKaneaster
+"""
+'''
+Charles Kaneaster
+CSIA 450
+Spring 2020
+Project 2
+'''
+
+# LIBRARIES
+from datetime import date
+import os
+import pickle
+import json
+import subprocess
+
+os.chdir('C:\\Users\\CharlesKaneaster')
+
+cwd = os.getcwd()
+print(cwd)
+#path = os.path.join("C:\\", "C:\\Program files (x86)\\Nmap")
+# SET VARIABLES
+my_dir = 'C:\\Users\\CharlesKaneaster\\Logon ID'
+my_pickle = 'C:\\Users\\CharlesKaneaster\\Logon ID\\data.pickle'
+my_json = 'C:\\Users\\CharlesKaneaster\\Logon ID\\data.json'
+port_list = ['192.168.1.20:80', '192.168.1.20:23', '192.168.1.20:22']
+nmap_path = "C:\\Program files (x86)\\Nmap"
+nmap_network = '192.168.1.20'
+
+def create_directory(my_dir):   
+    if(os.path.isdir(my_dir)) == False:
+        try:  
+            os.mkdir(my_dir)
+            print ("INFO: The directory was created:", my_dir) 
+        except OSError:  
+            print ("ERROR: Failed to create directory:", my_dir)
+    else:
+        print ("INFO: The directory already exists:", my_dir) 
+        
+def create_date_string():
+    date_str = date.today().strftime("%m%d%y")
+    print("Date String:", date_str)
+
+def write_files():
+    # write the pickle file
+    with open(my_pickle, 'wb') as fp:
+        pickle.dump(port_list, fp)
+    fp.close()
+    
+    # write the json file
+    with open(my_json, 'w') as fp:  
+        json.dump(port_list, fp)
+    fp.close()
+
+def read_files():
+    port_list = []
+    
+    # read the pickle file
+    with open (my_pickle, 'rb') as fp:
+        port_list = pickle.load(fp)
+    fp.close()
+    
+    print("pickle:", port_list)
+    
+    port_list = []
+    
+    # read the json file
+    with open(my_json, 'r') as fp:  
+        port_list = json.load(fp)
+    fp.close()
+    
+    print("json:", port_list)
+
+def run_nmap():
+    nmap_out = subprocess.run([nmap_path, "-T4", nmap_network], capture_output=True)
+    nmap_data = nmap_out.stdout.splitlines()
+    print(nmap_data)
