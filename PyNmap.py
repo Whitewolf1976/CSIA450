@@ -17,21 +17,29 @@ import os
 import pickle
 import json
 import subprocess
-
-os.chdir('C:\\Users\\CharlesKaneaster')
+ 
+os.chdir('C:\\Users\\charleskaneaster')
 
 cwd = os.getcwd()
 print(cwd)
-#path = os.path.join("C:\\", "C:\\Program files (x86)\\Nmap")
-# SET VARIABLES
-my_dir = 'C:\\Users\\CharlesKaneaster\\Logon ID'
-my_pickle = 'C:\\Users\\CharlesKaneaster\\Logon ID\\data.pickle'
-my_json = 'C:\\Users\\CharlesKaneaster\\Logon ID\\data.json'
-port_list = ['192.168.1.20:80', '192.168.1.20:23', '192.168.1.20:22']
-nmap_path = "C:\\Program files (x86)\\Nmap"
-nmap_network = '192.168.1.20'
 
-def create_directory(my_dir):   
+# SET VARIABLES
+
+my_dir = 'C:\\Users\\CharlesKaneaster\\Logon ID'
+
+#Create the files so they start with the date.
+
+date_str = date.today().strftime("%m%d%y")
+my_pickle = 'C:\\Users\\charleskaneaster\\Downloads\\tmp\\%s.pickle' % date_str
+my_json = 'C:\\Users\\charleskaneaster\\Downloads\\tmp\\%s.json' % date_str
+
+port_list = ['192.168.1.1:80', '192.168.1.1:23', '192.168.1.1:22']
+nmap_path = 'C:\\Program Files (x86)\\Nmap\\nmap.exe'
+nmap_network = '192.168.1.0/24'
+
+#Directory
+
+def create_directory():   
     if(os.path.isdir(my_dir)) == False:
         try:  
             os.mkdir(my_dir)
@@ -40,6 +48,7 @@ def create_directory(my_dir):
             print ("ERROR: Failed to create directory:", my_dir)
     else:
         print ("INFO: The directory already exists:", my_dir) 
+        
         
 def create_date_string():
     date_str = date.today().strftime("%m%d%y")
@@ -75,7 +84,14 @@ def read_files():
     
     print("json:", port_list)
 
+#Run NMAP
 def run_nmap():
     nmap_out = subprocess.run([nmap_path, "-T4", nmap_network], capture_output=True)
     nmap_data = nmap_out.stdout.splitlines()
     print(nmap_data)
+    
+create_directory()
+create_date_string()
+write_files()
+read_files()
+run_nmap()    
