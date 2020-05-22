@@ -22,7 +22,7 @@ cwd = os.getcwd()
 print(cwd)
 
 # SET VARIABLES
-my_dir = 'C:\\Users\\charleskaneaster\\Downloads\\tmp'
+my_dir = 'C:\\Users\\charleskaneaster\\Downloads\\Logon ID'
 date_str = date.today().strftime("%m%d%y")
 my_pickle = 'C:\\Users\\charleskaneaster\\Downloads\\tmp\\%s.pickle' % date_str
 my_json = 'C:\\Users\\charleskaneaster\\Downloads\\tmp\\%s.json' % date_str
