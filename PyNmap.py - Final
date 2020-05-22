@@ -22,14 +22,13 @@ os.chdir('C:\\Users\\charleskaneaster')
 cwd = os.getcwd()
 print(cwd)
 
-# SET VARIABLES
-my_dir = 'C:\\Users\\charleskaneaster\\Downloads\\Logon ID'
+# SET VARIABLES &
+#Create the files so they start with the date.
 
-#create the files so they start witht he date.
+my_dir = 'C:\\Users\\charleskaneaster\\Downloads\\Logon ID'
 date_str = date.today().strftime("%m%d%y")
 my_pickle = 'C:\\Users\\charleskaneaster\\Downloads\\tmp\\%s.pickle' % date_str
 my_json = 'C:\\Users\\charleskaneaster\\Downloads\\tmp\\%s.json' % date_str
-
 port_list = ['192.168.1.1:80', '192.168.1.1:23', '192.168.1.1:22']
 nmap_path = 'C:\\Program Files (x86)\\Nmap\\nmap.exe'
 nmap_network = '192.168.1.0/24'
@@ -50,6 +49,7 @@ def create_directory():
 def create_date_string():
     date_str = date.today().strftime("%m%d%y")
     print("Date String:", date_str)
+    
 #Files
 
 def write_files():
