@@ -23,7 +23,7 @@ cwd = os.getcwd()
 print(cwd)
 
 # SET VARIABLES
-my_dir = 'C:\\Users\\charleskaneaster\\Downloads\\tmp'
+my_dir = 'C:\\Users\\charleskaneaster\\Downloads\\Logon ID'
 
 #create the files so they start witht he date.
 date_str = date.today().strftime("%m%d%y")
@@ -33,6 +33,8 @@ my_json = 'C:\\Users\\charleskaneaster\\Downloads\\tmp\\%s.json' % date_str
 port_list = ['192.168.1.1:80', '192.168.1.1:23', '192.168.1.1:22']
 nmap_path = 'C:\\Program Files (x86)\\Nmap\\nmap.exe'
 nmap_network = '192.168.1.0/24'
+
+#Directory
 
 def create_directory():   
     if(os.path.isdir(my_dir)) == False:
@@ -48,6 +50,7 @@ def create_directory():
 def create_date_string():
     date_str = date.today().strftime("%m%d%y")
     print("Date String:", date_str)
+#Files
 
 def write_files():
     # write the pickle file
@@ -78,6 +81,8 @@ def read_files():
     fp.close()
     
     print("json:", port_list)
+
+#NMAP
 
 def run_nmap():
     nmap_out = subprocess.run([nmap_path, "-T4", nmap_network], capture_output=True)
